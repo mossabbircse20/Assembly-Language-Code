@@ -1,9 +1,7 @@
 .model small
 .stack 100h
 .data
-a db 'input first number : $'
-b db 'input second number : $'
-r db 'Result : $'
+lp db 'Printing 1 to 10 : $',10,13
 .code
 main proc 
     ; 1-> single key input
@@ -14,41 +12,26 @@ main proc
     mov ds,ax
 
     mov ah,9
-    lea dx,a
+    lea dx,lp
     int 21h
 
-    mov ah,1
-    int 21h
-    mov bl,al
-
+    mov cx,9
     mov ah,2
-    mov dl,10
-    int 21h
-    mov dl,13
-    int 21h
+    mov dl,'1'
 
-    mov ah,9
-    lea dx,b
+    level1:
     int 21h
+    inc dl
+    loop level1
 
-    mov ah,1
-    int 21h
-    mov bh,al
-
+    mov cx,2
     mov ah,2
-    mov dl,10
-    int 21h
-    mov dl,13
-    int 21h
+    mov dl,'1'
 
-    mov ah,9
-    lea dx,r 
+    level2:
     int 21h
-
-    mov ah,2
-    add bl,bh
-    mov dl,bl
-    int 21h
+    dec dl
+    loop level2
 
     mov ah,4ch
     int 21h
